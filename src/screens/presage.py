@@ -11,7 +11,7 @@ class Presage(BaseState):
         super().__init__()
         self.grid = Grid(50, BROWN)
 
-    def handle_events(self, events):
+    def handle_events(self, events, clock):
         pass
 
     def draw(self, screen):

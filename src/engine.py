@@ -6,7 +6,7 @@ import json
 from src.screens.presage import Presage
 from src.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, BLACK
 from src.modules.push_button import Push_Button
-from src.screens import MainMenu, Gameplay, Help
+from src.screens import MainMenu, Setup, Help
 
 '''
 #setup base host and port 
@@ -26,7 +26,7 @@ class Game:
         
         self.state_dict = {
             "MAIN_MENU": MainMenu(),
-            "GAMEPLAY": Gameplay(),
+            "SETUP": Setup(),
             "PRESAGE": Presage()
         }
         
@@ -69,7 +69,7 @@ class Game:
     def run(self):
         while self.running:
             self.clock.tick(FPS)
-            self.handle_events()
+            self.handle_events(self.clock)
             self.update()
             self.draw()
             if self.state.done:
@@ -77,12 +77,12 @@ class Game:
         pygame.quit()
         sys.exit()
 
-    def handle_events(self):
+    def handle_events(self, clock):
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT: #x button closes the window
                 self.running = False
-        self.state.handle_events(events)
+        self.state.handle_events(events, clock)
 
     def update(self):
        # self.all_sprites.update() if sprites are decided to be used
@@ -100,12 +100,14 @@ class Game:
         self.state.next_state = None
         
         # Load the new active state (and optionally re-instantiate it to reset it)
-        if next_state_name == "GAMEPLAY":
-            self.state_dict["GAMEPLAY"] = Gameplay() # Clean slate reset
+        if next_state_name == "SETUP":
+            self.state_dict["SETUP"] = Setup() # Clean slate reset
         if next_state_name == "MAIN_MENU":
             self.state_dict["MAIN_MENU"] = MainMenu() # Clean slate reset
         if next_state_name == "PRESAGE":
             self.state_dict["PRESAGE"] = Presage() # Clean slate reset
+        if next_state_name == "HELP":
+            self.state_dict["HELP"] = Help() # Clean slate reset
             
         self.active_state_name = next_state_name
         self.state = self.state_dict[self.active_state_name]

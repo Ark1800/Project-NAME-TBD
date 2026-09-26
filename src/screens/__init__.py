@@ -1,5 +1,5 @@
 #PUBLICITY
 from .start_menu import MainMenu
-from .gameplay import Gameplay
+from .setup import Setup
 from .help import Help
 from .presage import Presage

@@ -7,7 +7,7 @@ class Help(BaseState):
         super().__init__()
         self.font = pygame.font.SysFont(None, 36)
 
-    def handle_events(self, events):
+    def handle_events(self, events, clock):
         for event in events:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 # Return to menu on Escape
@@ -15,4 +15,7 @@ class Help(BaseState):
                 self.done = True
 
     def draw(self, screen):
-        pass
+        screen.fill((30, 30, 40))
+        message = self.font.render("HELP - Press ESC to return to menu", True, WHITE)
+        message_rect = message.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+        screen.blit(message, message_rect)
