@@ -1,6 +1,6 @@
 #player example
 import pygame
-from settings import WHITE
+from src.settings import WHITE
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):

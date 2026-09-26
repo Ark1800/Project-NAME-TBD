@@ -3,10 +3,10 @@
 #1. could add an effect where everything pauses until you release the button (non-instant activation)
 
 import pygame
-from settings import WHITE, BLACK, DARK_GRAY, DARK_BLUE, BLUE, RED, GREEN, LIGHT_GRAY, LIGHT_BLUE, LIGHT_GREEN, LIGHT_RED, ORANGE, YELLOW, DARK_ORANGE, DARK_YELLOW, DARK_GREEN, DARK_RED, PINK, PURPLE
+from src.settings import WHITE, BLACK, DARK_GRAY, DARK_BLUE, BLUE, RED, GREEN, LIGHT_GRAY, LIGHT_BLUE, LIGHT_GREEN, LIGHT_RED, ORANGE, YELLOW, DARK_ORANGE, DARK_YELLOW, DARK_GREEN, DARK_RED, PINK, PURPLE
 
 class Push_Button (pygame.sprite.Sprite):
-    def __init__(self, x, y, width, height, text, fontsize):
+    def __init__(self, x, y, width, height, text, fontsize, purpose):
         super().__init__()
         self.base = pygame.rect.Rect(x, y, width, height)
         self.font = pygame.font.Font(None, fontsize)  # Use default font and the specified size
@@ -16,6 +16,8 @@ class Push_Button (pygame.sprite.Sprite):
         self.text_color = WHITE # default text color
         self.hover_color = GREEN # default color when hovering
         self.click_color = RED # default color when clicked
+        self.purpose = purpose  # Store the button's purpose
+
         
         self.text_rect = self.text.get_rect(center=self.base.center) #text in button center
         
@@ -25,19 +27,20 @@ class Push_Button (pygame.sprite.Sprite):
         screen.blit(self.text, self.text_rect)  # Draw the text on the button
         
     def click(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left mouse button
             if self.base.collidepoint(event.pos):
                 self.current_color = self.click_color  # Change color on click
-                
-        elif event.type == pygame.MOUSEBUTTONUP:
-            self.current_color = self.bg_color  # Reset color on release
-        return False
+                return True  # Button was clicked
+        return False  # Button was not clicked
     
     def hover(self, event):
-        if self.base.collidepoint(pygame.mouse.get_pos()):
-            self.current_color = self.hover_color  # Change color on hover
-        else:
-            self.current_color = self.bg_color  # Reset color when not hovering
+            if self.base.collidepoint(pygame.mouse.get_pos()):
+                if self.purpose == "exit":
+                    self.current_color = RED  # Change color on hover for exit button
+                else:
+                    self.current_color = self.hover_color  # Change color on hover
+            else:
+                self.current_color = self.bg_color  # Reset color when not hovering
             
     def set_text(self, new_text):
         self.text = self.font.render(new_text, True, self.text_color)  # Update the text
