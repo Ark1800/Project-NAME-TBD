@@ -1,5 +1,5 @@
 '''
-By: Andrew Campbell, Liam Johnston, Reese Hudson, and Gabriel Abdalla
+By: Andrew Campbell, Liam Johnston, Reese Houston, and Gabriel Abdalla
 Date: 2026-09-26
 Program Details: a functional screen management application that measures the users stress levels and authenticates who they are in order to let them into certain applications.
 '''
