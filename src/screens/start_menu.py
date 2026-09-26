@@ -12,9 +12,7 @@ class MainMenu(BaseState):
         self.btn_start_game = Push_Button(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 100, 200, 100, "Setup", 36, "setup")
         self.btn_help = Push_Button(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50, 200, 100, "Help", 36, "help")
         self.btn_exit = Push_Button(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 200, 200, 100, "Exit", 36, "exit")
-        self.title = Label(SCREEN_WIDTH // 2, 100, 0, 100, "The Gambler's Nightmare", 100)
-        self.lbl_title = Label(0, 0, SCREEN_WIDTH, 80, "TITLE", 48)
-        
+        self.title = Label(SCREEN_WIDTH // 2, 100, 0, 100, "StablePlay", 100)
 
     def handle_events(self, events):
         for event in events:
