@@ -8,7 +8,6 @@ from src.modules.label import Label
 from src.modules.text_input import TextInput
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
-import shared_config
 
 from src.settings import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BROWN, BLACK, ORANGE
 
@@ -33,13 +32,10 @@ class MainMenu(BaseState):
             if self.btn_start_game.click(event):
                 self.next_state = "SETUP"
                 self.done = True
-                self.txt_test1.get_text()  # Retrieve the text from the TextInput when starting the game
-                print(f"TextInput content: {self.txt_test1.get_text()}")  # Print the text to the console for debugging
             elif self.btn_help.click(event):
                 self.next_state = "HELP"
                 self.done = True
             elif self.btn_exit.click(event):
-                shared_config.presage_main_run = False  # Set the variable to False when exiting
                 pygame.quit()
         self.txt_test1.handle_events(events)  # Pass events to the TextInput for handling user input
         dt = clock.tick(60) / 1000.0  # Calculate delta time in seconds
